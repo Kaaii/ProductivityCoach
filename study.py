@@ -36,9 +36,9 @@ class Study:
         m = time.localtime(self.start_time).tm_min
         if m < 10: #Convert single digit to two digit
             m = '0{}'.format(m)
-        self.end_time = time.time() + t*60
+        self.end_time = time.time() + t
 
-        await self.bot.say("Timer has begun. You have {} minutes.".format(t))
+        await self.bot.say("Timer has begun. You have {} minutes.".format(t/60))
         await self.bot.say("Current time is: {}:{} PST/PDT. Use +end to quit.".format(h,m))
 
         while time.time() < self.end_time:
