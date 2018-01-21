@@ -14,7 +14,7 @@ class GameTimer:
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name = 'playtime')
+    @commands.command(name = 'playtime', description = 'Tells user current playtime.')
     async def playtime(self, ctx):
         ptime = 0
         await bot.say("You've been playing for: {}.".format(ptime))

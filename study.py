@@ -19,10 +19,7 @@ class Study:
         self.checks = 0
         self.session = 'study'
 
-    @commands.cooldown(1, 1500, commands.BucketType.user)
-    @commands.command(pass_context=True,
-        description='Sets a Pomodoro timer.')
-    async def timer(self):
+    async def pomo(self):
         #Checks type of session to start
         if self.session == 'study':
             t = 1
@@ -46,6 +43,7 @@ class Study:
         while time.time() < self.end_time:
             await asyncio.sleep(10)
 
+        #Check for end of timer
         if time.time() > self.end_time and t == 1:
             self.checks += 1
             if self.checks%4 == 0:
@@ -55,19 +53,21 @@ class Study:
             h=time.localtime(time.time()).tm_hour
             m=time.localtime(time.time()).tm_min
             await self.bot.say("Time's up!")
-            await self.bot.say("Type ready when you are ready for your break.")
+            await self.bot.say("Type [ready] when you are ready for your break.")
         elif time.time() > self.end_time and t != 1:
             self.session = 'study'
             await self.bot.say("Break's over!")
-            await self.bot.say("Type ready when you are ready for the next session.")
+            await self.bot.say("Type [ready] when you are ready for the next session.")
 
-        def check(msg):
-            return self.msg.content.startswith('ready')
-
-        msg = await self.bot.wait_for_message(check = check)
+        msg = await self.bot.wait_for_message(content = 'ready')
         if msg.content.startswith('ready'):
-            await self.timer()
+            await self.pomo()
 
+    @commands.cooldown(1, 1500, commands.BucketType.user)
+    @commands.command(pass_context=True,
+        description='Sets a Pomodoro timer.')
+    async def timer(self):
+        await self.pomo()
 
 
     @commands.command(description='Check time remaining.')
@@ -75,15 +75,16 @@ class Study:
         time_left = self.end_time - time.time()
         m = int(time_left/60)
         s = int(time_left%60)
-        if m < 10: #Convert single digit to two digit
-            m = '0{}'.format(m)
+        if s < 10: #Convert single digit to two digit
+            s = '0{}'.format(m)
         await self.bot.say("Time remaining: {}:{} (min:sec).".format(m,s))
 
 
     @commands.command(description='Ends Pomodoro sessions.')
     async def end(self):
         await self.bot.say("Ending current session. You completed {} sessions!".format(self.checks))
-        await self.timer('C')
+        self.session = 'End'
+        await self.pomo()
 
 
 def setup(bot):
