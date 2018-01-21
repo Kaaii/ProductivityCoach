@@ -22,8 +22,17 @@ Coded in Python.
 
 * [todo]: View the to-do list and deadlines.
 
+## Work left:
+* Detect when a user goes idle and automatically change the toggle in game_timer to 'free', and back to 'busy' when user goes out of idle while in-game.
+
+* Prevent user from setting deadlines that are already past.
+
+* Allow user to not set a deadline (defaults to just being on to-do list)
+
+* Allow user to add more reminders before a deadline (alert x days before deadline.)
+
 ## Ideas:
-* Point tracking: Keep track of a users' point gain using this bot, input into [userid]-points.csv to save data. Data format will be constant appends of date, points gained that day, total points so far. User's point gain totals _can not_ go past 0.
+* Points system: Keep track of a users' point gain using this bot, input into [userid]-points.csv to save data. Data format will be constant appends of date, points gained that day, total points so far. User's point gain totals _can not_ go past 0.
 
 * Productivity timer: times study sessions with breaks, notifies you via messages (does not rely on your current status changes). Add command to stop productivity timer. For each study session completed, award 10 points. For each break, award 2 points.
 
@@ -33,11 +42,7 @@ Coded in Python.
 
 * Goal reminders: Set multiple goals with deadlines (if no deadline, then bot will prompt for goal completion at weekly intervals). Bot will do several reminders at different intervals leading up to the deadline, and ask if user has completed the goal (or user can "command" the bot they completed a goal). For each goal completed, award user 10 points + 5 points per day done earlier. If goal is within _same day_, requires a time (in military) for deadline. If no deadline given, bot will assume deadline is at 23:59 of that day. No points are awarded for goals set with times <1 hour of current time.
 
-* Fitness coaching: Starts and manages a simple fitness plan. (If time allows, add data tracking by inputting date, fitness data into a .csv file for analysis or graphical display).
 
-* Gaming wellness: If session time is over a certain length of time, prompts user to do certain stretches/light exercise
-
-* Diet input: When command is initiated, waits for user input of a list of caloric intake. Possibly combinable with fitness coaching data. Only to be implemented if time allows.
 
 #Repos used:
 discord.py
