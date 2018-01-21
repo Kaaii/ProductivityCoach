@@ -1,21 +1,23 @@
 # ProductivityCoach
 Discord Bot made for HackDavis 2018.
 Attempts to increase productivity and goal achievement via time management, particularly in managing gameplay time.
+Coded in Python.
 
-##Available commands (prefix : +)
-###Study:
+## Available commands (prefix : +)
+
+### Study:
 * [timer]: Starts the Pomodoro timer sequences beginning with a 25 minute session.
 
 * [time_left]: Tells you the remaining time left for a session or break.
 
 * [end]: Ends current session.
 
-###GameTimer:
+### GameTimer:
 * [playtime]: Lets you know how long you've been playing. Only usable when bot is there to see a change in status (from not playing to playing). If not playing any games, will let you know for how long.
 
 * [free]: Changes your 'status' to the bot to not send you game reminders. Use the command [busy] to set this again.
 
-###Goals:
+### Goals:
 * [goal] [add/remove]: Adds or removes a goal from 'to-do list'. After adding a goal, prompts user for setting a deadline for the goal in MM-DD-YYYY format. Will send a reminder to the user on the deadline.
 
 * [todo]: View the to-do list and deadlines.
@@ -36,3 +38,6 @@ Attempts to increase productivity and goal achievement via time management, part
 * Gaming wellness: If session time is over a certain length of time, prompts user to do certain stretches/light exercise
 
 * Diet input: When command is initiated, waits for user input of a list of caloric intake. Possibly combinable with fitness coaching data. Only to be implemented if time allows.
+
+#Repos used:
+discord.py
