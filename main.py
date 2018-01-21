@@ -42,7 +42,7 @@ async def on_message(message):
             'What would you like to do? Type +help for a list of commands.')
 
     #Close the bot connection completely. Remove or add permission check to avoid abrupt closures.
-    if message.content.startswith('bye!'):
+    if message.content.startswith('bye!') and message.author.id == '271513843555893248':
         await bot.close()
 
 

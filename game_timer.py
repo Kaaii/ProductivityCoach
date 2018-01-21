@@ -16,7 +16,7 @@ class GameTimer:
     """
     Messages reminders to stop playing after long periods of time.
     Use +playtime to view your current game playtime.
-    Use +workfree to stop GameTimer reminders. (Only use this if you truly have nothing to do!)
+    Use +free to stop GameTimer reminders. (Only use this if you truly have nothing to do!)
     Use +busy to turn reminders back on.
     """
     def __init__(self, bot):
@@ -26,13 +26,25 @@ class GameTimer:
         self.ptime = 0 #keeps count of playtime
         self.status = 'busy'
 
+    async def on_member_update(self,before,after):
+        """
+        Checks if user is idle, or was idle.
+        Then changes notification settings appropriately.
+        """
+        if after.status == idle:
+            self.status = 'free'
+            #print('Status changed to active.')
+        if before.status == idle:
+            self.status = 'busy'
+            #print('Status changed to busy again.')
+
     async def on_member_update(self, before, after):
         """
         Event listener that waits for a member to change status to 'Playing.'
         Will then wait to message user reminders not to play too long.
         """
         self.gamer = after
-        if after.game != None:
+        if after.game != None and after.status != idle:
             await self.bot.send_message(after,"You have started playing {}".format(after.game))
             await self.bot.send_message(after,"I'll let you know when to take a break.")
         self.start_time = time.time()
@@ -41,7 +53,6 @@ class GameTimer:
         h=0
         t=3600 #t=30 for testing (30s intervals)
         while after.game != None and self.status == 'busy':
-            await self.bot.send_message(after, after.mention+" Starting the timer...")
             h += 1
             await asyncio.sleep(t)
             await self.bot.send_message(after, after.mention + " You've been playing for {} hour(s).".format(h))
@@ -54,6 +65,7 @@ class GameTimer:
             if h > 3: #Past three hours
                 t=600 #Change to 10 min reminders.
                 await self.bot.send_message(after, after.mention + " It's been way too long! You should stop playing!")
+
 
     @commands.command(description = 'Tells user current playtime.')
     async def playtime(self):
@@ -72,7 +84,7 @@ class GameTimer:
                 format(h,m,s))
 
     @commands.command()
-    async def workfree(self):
+    async def free(self):
         """
         Lets the bot know you are free to game without reminders.
         """
