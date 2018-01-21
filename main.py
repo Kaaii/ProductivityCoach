@@ -7,7 +7,7 @@ import traceback
 command_prefix = '+'
 bot = commands.Bot(command_prefix)
 
-extensions = ["study"]
+extensions = ["study", "game_timer"]
 
 if __name__ == '__main__':
     for extension in extensions:
@@ -27,6 +27,7 @@ async def on_ready():
 #Raises an error to console, and messages user command is on cooldown.
 @bot.event
 async def on_command_error(error, ctx):
+    #Cooldown error. Tells you how much time in s left on cooldown.
     if isinstance(error, commands.CommandOnCooldown):
         await bot.send_message(ctx.message.channel, content='This command is still on cooldown. (%.2fs remaining)' % error.retry_after)
     raise error
@@ -46,4 +47,4 @@ async def on_message(message):
 
 
 
-bot.run('NDA0Mzk2ODAxMzY2NDI1NjAw.DUVRgw.WP788zpRXVSs0gipLi-giyNXJMU')
+bot.run('NDA0Mzk2ODAxMzY2NDI1NjAw.DUW_Pg.hz289-r8DkwwCYN4FuyNnGfiR8U')

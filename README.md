@@ -3,13 +3,17 @@ Discord Bot made for HackDavis 2018.
 Attempts to increase productivity and goal achievement via time management, particularly in managing gameplay time.
 
 ##Available commands (prefix : +)
+###Study:
 * [timer]: Starts the Pomodoro timer sequences beginning with a 25 minute session.
 
 * [time_left]: Tells you the remaining time left for a session or break.
 
-* [rest], [cont]: Use when prompted to continue to start the break timer or continue to the next session.
+* [end]: Ends current session.
 
-* [end]: Ends current session. 
+###GameTimer:
+* [playtime]: Lets you know how long you've been playing. Only usable when bot is there to see a change in status (from not playing to playing). If not playing any games, will let you know for how long.
+
+* [workfree]: Changes your 'status' to the bot to not send you game reminders. Use the command [busy] to set this again. 
 
 ## Goals:
 * Point tracking: Keep track of a users' point gain using this bot, input into [userid]-points.csv to save data. Data format will be constant appends of date, points gained that day, total points so far. User's point gain totals _can not_ go past 0.
