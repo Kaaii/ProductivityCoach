@@ -8,9 +8,10 @@ Study session timing using the traditional Pomodoro technique.
 """
 class Study:
     """
-    Pomodoro timer.
+    Pomodoro timer:
     25 minute sessions with 5 minute breaks in between.
     After the fourth session, a 15 minute break is introduced.
+    Use +end to quit sessions.
     """
     def __init__(self, bot):
         self.bot = bot
@@ -19,10 +20,10 @@ class Study:
         self.checks = 0
         self.session = 'study'
 
-    async def pomo(self):
+    async def pomo(self,mention):
         #Checks type of session to start
         if self.session == 'study':
-            t = 1
+            t = 1500
         elif self.session == 'break':
             t = 5
         elif self.session == 'long break':
@@ -38,7 +39,7 @@ class Study:
         self.end_time = time.time() + t*60
 
         await self.bot.say("Timer has begun. You have {} minutes.".format(t))
-        await self.bot.say("Current time is: {}:{} PST.".format(h,m))
+        await self.bot.say("Current time is: {}:{} PST/PDT. Use +end to quit.".format(h,m))
 
         while time.time() < self.end_time:
             await asyncio.sleep(10)
@@ -52,26 +53,33 @@ class Study:
                 self.session = 'break'
             h=time.localtime(time.time()).tm_hour
             m=time.localtime(time.time()).tm_min
-            await self.bot.say("Time's up!")
+            await self.bot.say(mention + " Time's up!")
             await self.bot.say("Type [ready] when you are ready for your break.")
         elif time.time() > self.end_time and t != 1:
             self.session = 'study'
-            await self.bot.say("Break's over!")
+            await self.bot.say(mention + " Break's over!")
             await self.bot.say("Type [ready] when you are ready for the next session.")
 
         msg = await self.bot.wait_for_message(content = 'ready')
         if msg.content.startswith('ready'):
-            await self.pomo()
+            await self.pomo(mention)
 
     @commands.cooldown(1, 1500, commands.BucketType.user)
     @commands.command(pass_context=True,
         description='Sets a Pomodoro timer.')
-    async def timer(self):
-        await self.pomo()
+    async def timer(self,ctx):
+        """
+        Starts the Pomodoro timer.
+        """
+        mention = ctx.message.author.mention
+        await self.pomo(mention)
 
 
-    @commands.command(description='Check time remaining.')
+    @commands.command()
     async def time_left(self):
+        """
+        Check time remaining.
+        """
         time_left = self.end_time - time.time()
         m = int(time_left/60)
         s = int(time_left%60)
