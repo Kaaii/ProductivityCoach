@@ -88,11 +88,14 @@ class Study:
         await self.bot.say("Time remaining: {}:{} (min:sec).".format(m,s))
 
 
-    @commands.command(description='Ends Pomodoro sessions.')
-    async def end(self):
+    @commands.command(pass_context=True)
+    async def end(self,ctx):
+        """
+        Ends Pomodoro sessions.
+        """
         await self.bot.say("Ending current session. You completed {} sessions!".format(self.checks))
         self.session = 'End'
-        await self.pomo()
+        await self.pomo(ctx.message.author)
 
 
 def setup(bot):
