@@ -13,9 +13,14 @@ Attempts to increase productivity and goal achievement via time management, part
 ###GameTimer:
 * [playtime]: Lets you know how long you've been playing. Only usable when bot is there to see a change in status (from not playing to playing). If not playing any games, will let you know for how long.
 
-* [workfree]: Changes your 'status' to the bot to not send you game reminders. Use the command [busy] to set this again. 
+* [free]: Changes your 'status' to the bot to not send you game reminders. Use the command [busy] to set this again.
 
-## Goals:
+###Goals:
+* [goal] [add/remove]: Adds or removes a goal from 'to-do list'. After adding a goal, prompts user for setting a deadline for the goal in MM-DD-YYYY format. Will send a reminder to the user on the deadline.
+
+* [todo]: View the to-do list and deadlines.
+
+## Ideas:
 * Point tracking: Keep track of a users' point gain using this bot, input into [userid]-points.csv to save data. Data format will be constant appends of date, points gained that day, total points so far. User's point gain totals _can not_ go past 0.
 
 * Productivity timer: times study sessions with breaks, notifies you via messages (does not rely on your current status changes). Add command to stop productivity timer. For each study session completed, award 10 points. For each break, award 2 points.

@@ -7,7 +7,7 @@ import traceback
 command_prefix = '+'
 bot = commands.Bot(command_prefix)
 
-extensions = ["study", "game_timer"]
+extensions = ["study", "game_timer","goals"]
 
 if __name__ == '__main__':
     for extension in extensions:
@@ -44,7 +44,6 @@ async def on_message(message):
     #Close the bot connection completely. Remove or add permission check to avoid abrupt closures.
     if message.content.startswith('bye!') and message.author.id == '271513843555893248':
         await bot.close()
-
 
 
 bot.run('NDA0Mzk2ODAxMzY2NDI1NjAw.DUW_Pg.hz289-r8DkwwCYN4FuyNnGfiR8U')
